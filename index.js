@@ -31,10 +31,10 @@ const getWeatherDataPromise = (url) => {
     })
 }
 
-app.all('/', function (req, res){
+app.all('/', function (req,res){
     let city
     if(req.method == 'GET'){
-        city = "Tartu"
+        city = 'Tartu'
     }
     if(req.method == 'POST'){
         city = req.body.cityname
@@ -43,6 +43,9 @@ app.all('/', function (req, res){
     getWeatherDataPromise(url)
         .then(data => {
             res.render('index', data)
+        })
+        .catch(error =>{
+            res.render( 'index', {error: 'Problem with getting data, try again!'})
         })
 })
 app.listen(3000)
